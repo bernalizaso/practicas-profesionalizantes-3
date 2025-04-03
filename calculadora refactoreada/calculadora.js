@@ -1,71 +1,87 @@
-let display = document.getElementById("display");
-
 function b1click() {
+  let display = document.getElementById("display");
   display.value += "1";
 }
 
 function b2click() {
+  let display = document.getElementById("display");
   display.value += "2";
 }
 
 function b3click() {
+  let display = document.getElementById("display");
   display.value += "3";
 }
 
 function b4click() {
+  let display = document.getElementById("display");
   display.value += "4";
 }
 
 function b5click() {
+  let display = document.getElementById("display");
   display.value += "5";
 }
 
 function b6click() {
+  let display = document.getElementById("display");
   display.value += "6";
 }
 
 function b7click() {
+  let display = document.getElementById("display");
   display.value += "7";
 }
 
 function b8click() {
+  let display = document.getElementById("display");
   display.value += "8";
 }
 
 function b9click() {
+  let display = document.getElementById("display");
   display.value += "9";
 }
 
 function b0click() {
+  let display = document.getElementById("display");
   display.value += "0";
 }
 
+function bdotclick() {
+  let display = document.getElementById("display");
+  display.value += ".";
+}
+
 function bplusclick() {
+  let display = document.getElementById("display");
   display.value += "+";
 }
 
 function bminusclick() {
+  let display = document.getElementById("display");
   display.value += "-";
 }
 
-function bdivideclick() {
-  display.value += "/";
-}
-
 function bmultclick() {
+  let display = document.getElementById("display");
   display.value += "*";
 }
 
-function bdotclick() {
-  display.value += ".";
-}
-
-function erase() {
-  display.value = "";
+function bdivideclick() {
+  let display = document.getElementById("display");
+  display.value += "/";
 }
 
 function calculate() {
+  let display = document.getElementById("display");
+
   display.value = eval(display.value);
+}
+
+function erase() {
+  let display = document.getElementById("display");
+  display.value = "";
 }
 
 document.getElementById("b0").onclick = b0click;
