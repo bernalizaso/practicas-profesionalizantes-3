@@ -11,7 +11,22 @@
     </body>
     <script>
 
+let equalizer = {
+      presets: new Map(),
+      adjustments: new Map(),
+      inputFile:""
+    };
 
+    let classicalAdjustments = new Map();
+    classicalAdjustments.set('Preamp','12.0');
+    classicalAdjustments.set('31.25 Hz','12.0');
+    classicalAdjustments.set('62.5 Hz','12.0');
+    classicalAdjustments.set('250 Hz','12.0');
+    classicalAdjustments.set('16 kHz','122.0');
+    
+    equalizer.inputFile = "C:\\libvlc-go.mp3";
+
+    equalizer.presets.set('Classical', classicalAdjustments);
 
         
     </script>
