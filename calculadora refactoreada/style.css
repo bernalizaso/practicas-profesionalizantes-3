@@ -1,0 +1,83 @@
+.caja{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: stretch;
+    align-content: space-between;
+    
+
+    width: 200px;
+    height: 240px;
+}
+
+.frame{
+    width: 100%;
+    height: 15%;
+}
+
+.erase-button{
+    color: white;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 70%;
+
+    background-color: red;
+    box-shadow: 0px 5px #BB3E22;
+
+    width: 100%;
+    height: 30px;
+
+    border-radius: 5px;
+    border-color: #BB3E22;
+}
+
+.equals-button{
+    color: white;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 70%;
+
+    background-color: rgb(194, 207, 14);
+    box-shadow: 0px 5px #9d9d07;
+
+    width: 70%;
+    height: 30px;
+
+    border-radius: 5px;
+    border-color: #9d9d07;
+
+    
+}
+
+
+.number-button{
+    color: white;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 70%;
+
+    background-color: rgb(112, 138, 203);
+    box-shadow: 0px 5px #250d66;
+
+    width: 70%;
+    height: 30px;
+
+    border-radius: 5px;
+    border-color: #250d66;
+}
+
+.operator-button{
+    color: white;
+    font-family: arial;
+    font-weight: bold;
+    font-size: 70%;
+
+    background-color: rgb(50, 162, 80);
+    box-shadow: 0px 5px #3a6546;
+
+    width: 70%;
+    height: 30px;
+
+    border-radius: 5px;
+    border-color: #3a6546;
+}
