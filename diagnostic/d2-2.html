@@ -10,7 +10,73 @@
     
     </body>
     <script>
+const Factura = {
+      tipo: "",
+      numero: "",
+      fechaEmision: "",
+      razonSocial: "",
+      direccion: "",
+      telefono: "",
+      cuit: "",
+      ingresosBrutos: "",
+      inicioActividades: "",
+      cliente: {
+        nombre: "",
+        direccion: "",
+        cuit: "",
+        condicionIVA: "",
+      },
+      condicionVenta: "",
+      items: [
+        {
+          codigo: "",
+          descripcion: "",
+          cantidad: 0,
+          unidadMedida: "",
+          precioUnitario: 0,
+          bonificacion: 0,
+          alicuotaIVA: 0,
+          total: 0,
+        },
+      ],
+      totales: {
+        importeNetoGravado: 0,
+        iva: 0,
+        importeTotal: 0,
+      },
+      importeEnLetras: "",
+    };
 
+    Factura.tipo = "A";
+    Factura.numero = "0001-00000075";
+    Factura.fechaEmision = "2016-02-23";
+    Factura.razonSocial = "Empresa S.A.";
+    Factura.cliente.nombre = "SOL S.R.L";
+    Factura.items = [
+      {
+        codigo: "5896",
+        descripcion: "Latex interior blanco x20L",
+        cantidad: 2,
+        unidadMedida: "unidad",
+        precioUnitario: 515.36,
+        bonificacion: 0,
+        alicuotaIVA: 1247,
+        total: 242,
+      },
+      {
+        codigo: "5897",
+        descripcion: "Pincel nº20",
+        cantidad: 5,
+        unidadMedida: "unidad",
+        precioUnitario: 82.36,
+        bonificacion: 0,
+        alicuotaIVA: 21,
+        total: 498.28,
+      },
+    ];
+    Factura.totales.importeNetoGravado = 1442.52;
+    Factura.totales.iva = 302.93;
+    Factura.totales.importeTotal = 1745;
 
 
         
