@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body></body>
+  <script>
+    const TheLostVikings = {
+      map: "Cave",
+      doorState: false,
+      entity: [
+        {
+          name: "Erik",
+          type: "playable character",
+          selected: false,
+          race: "Human",
+          action: "jump",
+          weapon: "none",
+          life: 3,
+          inventory: [{ key: 2 }, { apple: 1 }, { shield: 1 }],
+        },
+        {
+          name: "Baleog",
+          type: "playable character",
+          selected: true,
+          race: "Human",
+          weapon: "sword,bow",
+          action: "shoot",
+          life: 3,
+          inventory: [],
+        },
+        {
+          name: "Olaf ",
+          type: "playable character",
+          selected: false,
+          race: "Human",
+          weapon: "shield",
+          action: "block",
+          life: 3,
+          inventory: [],
+        },
+        {
+          name: "Green Snail",
+          type: "enemy",
+          race: "snail",
+          weapon: "none",
+          action: "spit",
+          life: 3,
+          inventory: [{ key: 2 }, { apple: 1 }, { shield: 1 }],
+        },
+      ],
+    };
+  </script>
+</html>
