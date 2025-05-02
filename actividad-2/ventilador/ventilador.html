@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    class Ventilador {
+  constructor() {
+    this.tipo = "de pie";       
+    this.velocidad = 0;         
+    this.altura = 100.0;        
+    this.potencia = 0;          
+    this.oscilacion = false;    
+    this.rotacion = false;      
+  }
+
+  subirVelocidad() {
+    if (this.velocidad < 5) {
+      this.velocidad++;
+      this.actualizarPotencia();
+      console.log(`Velocidad aumentada a ${this.velocidad}`);
+    } else {
+      console.log(`Ya esta en la velocidad maxima.`);
+    }
+  }
+
+  bajarVelocidad() {
+    if (this.velocidad > 0) {
+      this.velocidad--;
+      this.actualizarPotencia();
+      console.log(`Velocidad disminuida a ${this.velocidad}`);
+    } else {
+      console.log(`Ya esta apagado.`);
+    }
+  }
+
+  actualizarPotencia() {
+    this.potencia = this.velocidad * 20;  // potencia = velocidad *20, ejemplo si esta en potencia 3 →3*20 = 60W
+    console.log(`Potencia ajustada a ${this.potencia}W`);
+  }
+
+  encenderOscilacion() {
+    if (!this.oscilacion) {
+      this.oscilacion = true;
+      console.log(`Oscilacion encendida.`);
+    } else {
+      console.log(`La oscilacion ya esta encendida.`);
+    }
+  }
+
+  apagarOscilacion() {
+    if (this.oscilacion) {
+      this.oscilacion = false;
+      console.log(`Oscilacion apagada.`);
+    } else {
+      console.log(`La oscilacion ya esta apagada.`);
+    }
+  }
+
+  encenderRotacion() {
+    if (!this.rotacion) {
+      this.rotacion = true;
+      console.log(`Rotacion encendida.`);
+    } else {
+      console.log(`La rotacion ya esta encendida.`);
+    }
+  }
+
+  apagarRotacion() {
+    if (this.rotacion) {
+      this.rotacion = false;
+      console.log(`Rotacion apagada.`);
+    } else {
+      console.log(`La rotacion ya esta apagada.`);
+    }
+  }
+
+  ajustarAltura(nuevaAltura) {
+    if (nuevaAltura >= 50 && nuevaAltura <= 160) {
+      this.altura = nuevaAltura;
+      console.log(`Altura ajustada a ${this.altura} cm.`);
+    } else {
+      console.log(`Altura invalida. Debe estar entre 50 y 160 cm.`);
+    }
+  }
+}
+
+const ventilador = new Ventilador();
+ventilador.subirVelocidad();
+ventilador.ajustarAltura(120);
+ventilador.encenderOscilacion();
+ventilador.apagarOscilacion();
+ventilador.encenderRotacion();
+ventilador.bajarVelocidad();
+ventilador.apagarRotacion();
+
+</script>
+</html>

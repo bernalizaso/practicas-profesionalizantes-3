@@ -78,12 +78,12 @@
 
   limpiarParabrisa() {
     this.parabrisa = !this.parabrisa;
-    const estado = this.parabrisa ? "encendido" : "apagado";
+    const estado = this.parabrisa ? "encendido" : "apagado"; //Operador ternario, no se si lo podemos usar pero es comodo. Si preferis un if para mayor legibilidad lo cambio
     console.log(`Limpiaparabrisas ${estado}.`);
   }
 }
 
-const miAuto = new Auto("Toyota");
+const miAuto = new Auto("Toyota"); //Al final si lo implemente, pero esta solo en el constructor
 miAuto.encender();
 miAuto.acelerar();
 miAuto.cargar(30);

@@ -1,0 +1,29 @@
+objeto: Ventilador
+
+Propiedades/atributos: 
+nombre                  |Tipo de dato               |Rango de posibles valores
+
+
+tipos                   string                      de pie / de piso / de techo/ de pared
+velocidad               int                         0-5 velocidades
+altura                  float                       50cm-160cm, regulable por ser de pie
+potencia                int                         0-100 en wats, para las velocidades
+oscilacion              bool                        true-false para saber si esta oscilando o no
+rotacion                bool                        true-false lo mismo para rotacion
+
+Comportamiento:
+
+subirVelocidad
+bajarVelocidad
+encenderOscilacion
+apagarOscilacion
+encenderRotacion
+apagarRotacion
+ajustarAltura
+
+////////////////////
+No puse encendido/apagado porque en mi cabeza eso se ajusta con las velocidades, si esta en 0 es porque esta apagado.
+Diametro y material de aspas, o cantidad de aspas son atributos que podria agregar, pero no les daria utilidad en este caso, a fines de abstraccion no tienen sentido.
+Rotacion y oscilacion no estoy seguro, los agrego porque son caracteristicas de los ventiladores (algunos los tienen y otros no), pero puede que sean estados. 
+En este caso es un ventilador de pie, entiendo que habria polimorfismo en caso de tener varios tipos de ventilador. Habria  que meter validacion si implementara los tipos.
+Lo mismo, si es de techo creo que no puede oscilar y tampoco rotar.
