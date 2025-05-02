@@ -1,0 +1,27 @@
+objeto: Auto
+
+Propiedades/atributos: 
+nombre                  |Tipo de dato               |Rango de posibles valores
+
+velocidad               float                       0-180 km/h
+tanque                  float                       0-60 en litros   
+parabrisa               bool                        true o false para encendido o apagado
+encendido               bool                        true o false para encendido o apagado
+
+Comportamiento:
+
+encender
+apagar
+acelerar
+frenar
+cargar
+limpiarParabrisa
+
+
+//////////////////////
+En atributo podria implementar un volante, que seria un float(realmente me gustaria medirlo en grados o radianes para girarlo
+pero puede dar dos vueltas, es medio engorroso de implementar), con los metodos girar izquierda y derecha.
+Yendome un poco a extremos de implementacion, deberia agregar vaciar tanque si pusiera tipos de combustible, por si lo llenan con un combustible que no es (quedara para la proxima)
+Duda respecto a si agregar el estado "encendido" como un bool que arroje true o false, pero como tal creo que no vimos estados (aunque si dijiste que es como sacar una foto del momento actual).
+No diste contexto, pero si fuera de concesionaria para vender, marca, año, color son cosas que tendrian importancia para agregarle (aunque no diste datos, asumi contexto general)
+Marcha es otro atributo que podria agregar, por los cambios, o si es automatico en que posicion esta puesto, pero no diste precisiones. 

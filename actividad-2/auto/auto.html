@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    class Auto {
+  constructor(nombre) {
+    this.nombre = nombre; //Placeholder para marca, no lo implemente pero quedo por si las dudas
+    this.velocidad = 0;      
+    this.tanque = 0;         
+    this.parabrisa = false;  
+    this.encendido = false;
+  }
+
+  encender() {
+    if (!this.encendido) {
+      this.encendido = true;
+      console.log(`${this.nombre} encendido.`);
+    } else {
+      console.log(`${this.nombre} ya esta encendido.`);
+    }
+  }
+
+  apagar() {
+    if (this.encendido) {
+      this.encendido = false;
+      this.velocidad = 0;
+      console.log(`${this.nombre} apagado.`);
+    } else {
+      console.log(`${this.nombre} ya esta apagado.`);
+    }
+  }
+
+  acelerar() {
+    if (!this.encendido) {
+      console.log(`Primero encende el auto.`);
+      return;
+    }
+    if (this.velocidad < 180) {
+      this.velocidad += 10;
+      if (this.velocidad > 180) this.velocidad = 180;
+      console.log(`Acelerando... Velocidad: ${this.velocidad} km/h`);
+    } else {
+      console.log(`Velocidad maxima alcanzada.`);
+    }
+  }
+
+  frenar() {
+    if (this.velocidad > 0) {
+      this.velocidad -= 10;
+      if (this.velocidad < 0) this.velocidad = 0;
+      console.log(`Frenando... Velocidad: ${this.velocidad} km/h`);
+    } else {
+      console.log(`El auto ya esta detenido.`);
+    }
+  }
+
+  cargar(litros) {
+    if (litros <= 0) {
+      console.log(`Cantidad invalida para cargar.`);
+      return;
+    }
+    this.tanque += litros;
+    if (this.tanque > 60) {
+      this.tanque = 60;
+      console.log(`Tanque lleno. Capacidad maxima: 60 litros.`);
+    } else {
+      console.log(`Tanque cargado. Nivel actual: ${this.tanque} litros.`);
+    }
+  }
+
+  limpiarParabrisa() {
+    this.parabrisa = !this.parabrisa;
+    const estado = this.parabrisa ? "encendido" : "apagado";
+    console.log(`Limpiaparabrisas ${estado}.`);
+  }
+}
+
+const miAuto = new Auto("Toyota");
+miAuto.encender();
+miAuto.acelerar();
+miAuto.cargar(30);
+miAuto.limpiarParabrisa();
+miAuto.frenar();
+miAuto.apagar();
+</script>
+</html>
