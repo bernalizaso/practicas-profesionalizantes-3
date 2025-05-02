@@ -1,0 +1,17 @@
+objeto: Semaforo
+
+Propiedades/atributos: 
+nombre                  |Tipo de dato               |Rango de posibles valores
+Luz roja                    bool                        true/false
+Luz verde                   bool                        true/false
+Luz amarilla                bool                        true/false
+paso                        int                         1-4
+intervalo                   int                         1000-6000
+-
+
+
+Comportamiento:
+
+encenderLuz
+apagarLuz
+ciclarSecuencia

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Semaforo</title>
+</head>
+<body>
+    <div id="Caja-Semaforo" class="Caja-Semaforo">
+        <div id="Luz-Roja" class="Luz-Roja"></div>
+        <div id="Luz-Amarilla" class="Luz-Amarilla"></div>
+        <div id="Luz-Verde" class="Luz-Verde"></div>
+    </div>
+
+    
+</body>
+
+<script>
+
+class Semaforo {
+  constructor() {
+    this.luzVerde = false;
+    this.luzRoja = true;
+    this.luzAmarilla = false;
+    this.step = 0;
+    this.interval = 3000;
+
+  }
+
+  encenderLuz(nombre) {
+    this[nombre] = true;
+  }
+
+  apagarLuz(nombre) {
+    this[nombre] = false;
+  }
+
+  actualizarLuces() {
+    document.getElementById("Luz-Roja").style.backgroundColor = this.luzRoja ? "rgb(182, 23, 23)" : "black";//El color deberia estar en front y recuperarlo en el back
+    document.getElementById("Luz-Amarilla").style.backgroundColor = this.luzAmarilla ? "rgb(255, 251, 9)" : "black";
+    document.getElementById("Luz-Verde").style.backgroundColor = this.luzVerde ? "rgb(24, 252, 43)" : "black";
+  }
+
+  ciclarSecuencia() {
+
+    this.apagarLuz("luzRoja");
+    this.apagarLuz("luzAmarilla");
+    this.apagarLuz("luzVerde");
+
+
+    if (this.step === 0) {
+      this.encenderLuz("luzRoja");
+      this.interval = 3000;
+    } else if (this.step === 1 || this.step === 3) {
+      this.encenderLuz("luzAmarilla");
+      this.interval = 1000;
+    } else if (this.step === 2) {
+      this.encenderLuz("luzVerde");
+      this.interval = 3000;
+    }
+
+    this.step++;
+
+    if (this.step === 4) this.step = 0;
+
+    this.actualizarLuces();  
+    return this.step;  
+
+  }
+}
+
+const semaforo = new Semaforo();
+
+function actualizarSecuencia() {
+  semaforo.ciclarSecuencia();
+  setTimeout(actualizarSecuencia, semaforo.interval);
+}
+
+setTimeout(actualizarSecuencia, semaforo.interval);
+
+
+
+
+
+//setInterval(() => {semaforo.ciclarSecuencia(paso);paso = (paso + 1) % 4;}, 1000); Habia hecho esta funcion flecha, pero dijiste que no queriamos que las usemos
+//Explicacion corta, cualquier numero excepto 4 dividido el modulo de 4 va a dar el mismo numero, ya que evalua el resto del
+//numero dividido 4(porque son numeros menores a 4 y solo divide por enteros, lease por ejemplo, 4 entra 0 veces en 2, sobran 2 y devuelve 2)
+//al llegar a 4%4, el resto va a ser 0 volviendo a empezar el ciclo. Esto lo hice para no usar un if gigante y simplificar los pasos del ciclo, te la dejo porque me gusto como quedo
+//Si el semaforo es realista, probablemente tenga que desglosar en mas intervalos, ya que la luz amarilla deberia durar menos tiempo que las otras dos
+
+</script>
+</html>

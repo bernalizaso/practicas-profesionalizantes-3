@@ -1,0 +1,44 @@
+body{
+    display: flex;
+   justify-content: center;
+}
+
+.Caja-Semaforo{
+
+    background-color: rgb(255, 196, 0);
+    height: 200px;
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10%;
+    padding: 0.2%;
+}
+
+.Luz-Roja{
+
+    background-color: rgb(182, 23, 23);
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+
+}
+
+.Luz-Amarilla{
+
+    background-color: rgb(255, 251, 9);
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+}
+
+.Luz-Verde{
+
+    background-color: rgb(24, 252, 43);
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+
+}
+
