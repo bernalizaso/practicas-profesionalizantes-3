@@ -64,7 +64,7 @@ class Semaforo {
 
     if (this.step === 4) this.step = 0;
 
-    this.actualizarLuces();  
+    this.actualizarLuces();  //Si bien parece redundante, por algun motivo que no entiendo a veces se desincronizaban las luces, esta fue la mejor solucion que encontre
     return this.step;  
 
   }
