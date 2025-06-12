@@ -1,10 +1,77 @@
-///////////////Front
+//CONTROLADOR DE FIGURAS
 
-//////////////Back
-class Figure {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
+class FigureController {
+  constructor() {
+    this.keyboardState = {};
+    this.activeFigure = null;
+  }
+
+  setActiveFigure(figure) {
+    this.activeFigure = figure;
+    typeof updateActiveFigureDisplay === "function"
+      ? updateActiveFigureDisplay(figure)
+      : console.warn("updateActiveFigureDisplay no está definido.");
+  }
+
+  keyboardEvents() {
+    document.addEventListener(
+      "keydown",
+      (e) => (this.keyboardState[e.key] = true)
+    );
+    document.addEventListener(
+      "keyup",
+      (e) => (this.keyboardState[e.key] = false)
+    );
+  }
+
+  update() {
+    if (!this.activeFigure) return;
+
+    const ROTATE = 0.05;
+    const MOVE = 2;
+
+    if (this.keyboardState["ArrowUp"]) this.activeFigure.move(MOVE);
+    if (this.keyboardState["ArrowDown"]) this.activeFigure.move(-MOVE);
+    if (this.keyboardState["ArrowLeft"]) this.activeFigure.rotate(-ROTATE);
+    if (this.keyboardState["ArrowRight"]) this.activeFigure.rotate(ROTATE);
+  }
+} //Refactorizacion hecha con IA, se agrego el selector de figuras que me faltaba
+
+//MOTOR DE RENDER
+
+class GameEngineRender {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext("2d");
+    this.objects = new Map();
+  }
+
+  addObject(figure) {
+    if (figure?.id) this.objects.set(figure.id, figure);
+  }
+
+  getObject(id) {
+    return this.objects.get(id);
+  }
+
+  getAllObjects() {
+    return [...this.objects.values()];
+  }
+
+  render() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.objects.forEach((obj) => obj.draw(this.ctx));
+  }
+}
+
+//BASE Y FORMAS
+
+class Shape {
+  constructor(id, x, y, color) {
+    this.id = id;
+    this.x = parseFloat(x) || 0;
+    this.y = parseFloat(y) || 0;
+    this.color = color;
     this.angle = 0;
   }
 
@@ -13,125 +80,234 @@ class Figure {
   }
 
   move(value) {
-    const dx = Math.cos(this.angle) * value;
-    const dy = Math.sin(this.angle) * value;
-    this.x += dx;
-    this.y += dy;
+    this.x += Math.cos(this.angle) * value;
+    this.y += Math.sin(this.angle) * value;
+  }
+
+  draw(ctx) {
+    throw new Error("Draw method must be implemented."); //Manejo de errores agregado por IA, no lo creo necesario pero ahi quedo
+  }
+
+  getSummary() {
+    return { type: this.constructor.name, id: this.id };
   }
 }
 
-class Rectangle extends Figure {
-  constructor(x, y, w, h) {
-    super(x, y);
-    this.width = w;
-    this.height = h;
+class Rectangle extends Shape {
+  constructor(id, x, y, width, height, color) {
+    super(id, x, y, color);
+    this.width = parseFloat(width) || 50;
+    this.height = parseFloat(height) || 30;
   }
 
   draw(ctx) {
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = this.color;
     ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
     ctx.restore();
   }
 }
 
-class Circle extends Figure {
-  constructor(x, y, r) {
-    super(x, y);
-    this.r = r;
+class Circle extends Shape {
+  constructor(id, x, y, radius, color) {
+    super(id, x, y, color);
+    this.radius = parseFloat(radius) || 25;
   }
 
   draw(ctx) {
     ctx.save();
     ctx.translate(this.x, this.y);
-    ctx.rotate(this.angle);
+    ctx.fillStyle = this.color;
     ctx.beginPath();
-    ctx.arc(0, 0, this.r, 0, 2 * Math.PI);
-    ctx.fillStyle = "red";
+    ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   }
 }
 
-class FigureController {
-  constructor(figure) {
-    this.keyboardState = {};
-    this.figure = figure;
+class Triangle extends Shape {
+  constructor(id, x, y, side, color) {
+    super(id, x, y, color);
+    this.side = parseFloat(side) || 50;
   }
 
-  keyboardEvent() {
-    document.addEventListener("keydown", (e) => this.manageKeyDown(e));
-    document.addEventListener("keyup", (e) => this.manageKeyUp(e));
-  }
+  draw(ctx) {
+    const h = (Math.sqrt(3) / 2) * this.side;
 
-  manageKeyDown(event) {
-    this.keyboardState[event.key] = true;
-  }
-
-  manageKeyUp(event) {
-    this.keyboardState[event.key] = false;
-  }
-
-  update() {
-    const rotate_value = 0.05;
-    const movement_value = 2;
-
-    if (this.keyboardState["ArrowUp"]) this.figure.move(movement_value);
-    if (this.keyboardState["ArrowDown"]) this.figure.move(-movement_value);
-    if (this.keyboardState["ArrowLeft"]) this.figure.rotate(-rotate_value);
-    if (this.keyboardState["ArrowRight"]) this.figure.rotate(rotate_value);
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.moveTo(0, -h / 2);
+    ctx.lineTo(-this.side / 2, h / 2);
+    ctx.lineTo(this.side / 2, h / 2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
   }
 }
 
-class GameEngineRender {
-  constructor(canvasInstance) {
-    this.canvas = canvasInstance;
-    this.ctx = this.canvas.getContext("2d");
-    this.objects = new Map();
-  }
+//ELEMENTOS Y FUNCIONES AUXILIARES
 
-  addObject(id, object) {
-    this.objects.set(id, object);
-  }
+let figureTableBodyElem;
+let activeFigureIdSpanElem;
+let currentControllerInstance;
 
-  getObject(id) {
-    return this.objects.get(id);
-  }
+function updateActiveFigureDisplay(figure) {
+  if (activeFigureIdSpanElem)
+    activeFigureIdSpanElem.textContent = figure ? figure.id : "None";
 
-  render() {
-    //limpieza
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    //dibujado
-    for (const item of this.objects.values()) {
-      item.draw(this.ctx);
+  if (figureTableBodyElem) {
+    figureTableBodyElem.querySelectorAll("tr").forEach((row) => {
+      row.classList.toggle(
+        "active-row",
+        figure && row.dataset.figureId === figure.id
+      );
+    });
+  }
+}
+
+
+////FUNCIONES AUXILIARES: UI
+
+function initializeUI(renderer, controller) {
+    const addButtons = {
+    Rectangle: document.getElementById("addRectangleBtn"),
+    Circle: document.getElementById("addCircleBtn"),
+    Triangle: document.getElementById("addTriangleBtn"),
+};
+
+const shapeColorInput = document.getElementById("shapeColor");
+figureTableBodyElem = document.querySelector("#figureTable tbody");
+activeFigureIdSpanElem = document.getElementById("activeFigureId");
+
+for (const [shapeType, button] of Object.entries(addButtons)) {
+    button.addEventListener("click", () => {
+        const figure = promptForFigureDetails(shapeType, shapeColorInput, renderer);
+        if (figure) {
+            renderer.addObject(figure);
+            controller.setActiveFigure(figure);
+            updateFigureTable(renderer, controller);
+        }
+    });
+}
+}
+
+////FUNCIONES AUXILIARES: TABLA
+
+function updateFigureTable(renderer, controller) {
+    if (!figureTableBodyElem) return;
+    
+    figureTableBodyElem.innerHTML = "";
+    renderer.getAllObjects().forEach((figure) => {
+        const row = figureTableBodyElem.insertRow();
+        row.insertCell().textContent = figure.constructor.name;
+        row.insertCell().textContent = figure.id;
+        row.dataset.figureId = figure.id;
+        
+        if (controller.activeFigure?.id === figure.id)
+            row.classList.add("active-row");
+        
+        row.addEventListener("click", () => {
+            controller.setActiveFigure(renderer.getObject(figure.id));
+            updateFigureTable(renderer, controller);
+        });
+    });
+    
+    updateActiveFigureDisplay(controller.activeFigure);
+}
+
+////FUNCIONES AUXILIARES: CREACIÓN DE FIGURAS
+
+function promptForFigureDetails(shapeType, shapeColorInput, renderer) {
+    const id = prompt(`Enter ID for the new ${shapeType}:`);
+    if (!id) return null;
+    
+    const xStr = prompt(`Enter X coordinate for ${id}:`);
+    if (xStr === null) return null;
+    const yStr = prompt(`Enter Y coordinate for ${id}:`);
+    if (yStr === null) return null;
+    
+    const color = shapeColorInput.value;
+    let figure = null;
+    
+    try {
+        if (shapeType === "Rectangle") {
+            const widthStr = prompt(`Enter width for ${id}:`);
+            if (widthStr === null) return null;
+            const heightStr = prompt(`Enter height for ${id}:`);
+            if (heightStr === null) return null;
+            
+            if (isNaN(widthStr) || isNaN(heightStr) || isNaN(xStr) || isNaN(yStr)) {
+                throw new Error("Invalid dimensions/coordinates for Rectangle.");
+            }
+            
+            figure = new Rectangle(id, xStr, yStr, widthStr, heightStr, color);
+        } else if (shapeType === "Circle") {
+            const radiusStr = prompt(`Enter radius for ${id}:`);
+            if (radiusStr === null) return null;
+            
+            if (isNaN(radiusStr) || isNaN(xStr) || isNaN(yStr)) {
+                throw new Error("Invalid dimensions/coordinates for Circle.");
+            }
+            
+            figure = new Circle(id, xStr, yStr, radiusStr, color);
+        } else if (shapeType === "Triangle") {
+            const sideStr = prompt(`Enter side length for equilateral ${id}:`);
+            if (sideStr === null) return null;
+            
+            if (isNaN(sideStr) || isNaN(xStr) || isNaN(yStr)) {
+                throw new Error("Invalid dimensions/coordinates for Triangle.");
+            }
+            
+            figure = new Triangle(id, xStr, yStr, sideStr, color);
+        } else {
+      throw new Error(`Shape type "${shapeType}" is not recognized.`);
     }
-  }
+    
+    // Chequear existencia previa
+    if (renderer.getObject(id)) {
+        if (!confirm(`Figure with ID "${id}" already exists. Overwrite?`)) {
+            return null;
+        }
+    }
+} catch (e) {
+    alert(
+        `Error: ${e.message}. Please enter valid numbers or ensure ID is unique if not overwriting.`
+    );
+    return null;
 }
+
+return figure;
+}
+
+////MAIN
 
 function main() {
-  let canvas = document.createElement("canvas");
-  canvas.width = 960;
+  const canvas = document.getElementById("gameCanvas");
+  canvas.width = 600;
   canvas.height = 400;
-  document.querySelector(".canvasBody").appendChild(canvas);
 
-  let renderer = new GameEngineRender(canvas);
+  const renderer = new GameEngineRender(canvas);
+  const controller = new FigureController();
+  currentControllerInstance = controller;
+  controller.keyboardEvents();
 
-  renderer.addObject("rectangle", new Rectangle(400, 200, 110, 50));
-  renderer.addObject("circle", new Circle(480, 200, 30));
+  initializeUI(renderer, controller);
 
-  // Actualizamos las funciones de update y render después de crear el controlador
-  let controlador = new FigureController(renderer.getObject("circle"));
-  controlador.keyboardEvent();
+  updateFigureTable(renderer, controller);
+  updateActiveFigureDisplay(null);
 
-  const update = controlador.update.bind(controlador);
-  const render = renderer.render.bind(renderer);
+  function gameLoop() {
+    controller.update();
+    renderer.render();
+    requestAnimationFrame(gameLoop);
+  }
 
-  setInterval(function () {
-    update();
-    render();
-  }, 16);
+  requestAnimationFrame(gameLoop);
 }
 
 window.onload = main;
