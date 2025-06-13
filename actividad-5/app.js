@@ -311,3 +311,5 @@ function main() {
 }
 
 window.onload = main;
+
+//Previo modularizacion
